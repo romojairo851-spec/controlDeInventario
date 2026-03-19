@@ -1,0 +1,9 @@
+# Archivos locales
+.env
+*.log
+/vendor/
+.DS_Store
+.vscode/
+.idea/
+*.sql
+*.db
