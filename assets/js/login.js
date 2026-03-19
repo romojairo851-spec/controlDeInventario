@@ -1,86 +1,45 @@
-// Código corregido y con creación de usuario por defecto
+// assets/js/login.js
 
-const form = document.getElementById("loginForm");
-
-// ============================
-// 1. Crear usuarios por defecto si no existen
-// ============================
-if (!localStorage.getItem("usuarios")) {
-  const defaultUser = [
-    {
-      username: "admin",
-      fullname: "Administrador",
-      email: "admin@gmail.com",
-      password: "admin123"
-    }
-  ];
-
-  localStorage.setItem("usuarios", JSON.stringify(defaultUser));
-  console.log("Usuarios por defecto creados en login.js");
-}
-
-// ============================
-// 2. Validar login
-// ============================
-if (!form) {
-  console.error("No se encontró el formulario con id 'loginForm'.");
-} else {
-  form.addEventListener("submit", function (e) {
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
-    const inputUser = document.getElementById("username");
-    const inputPass = document.getElementById("password");
-
-    if (!inputUser || !inputPass) {
-      alert("No se encontraron los campos de usuario o contraseña.");
-      return;
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    if (!username || !password) {
+        alert('Por favor complete todos los campos');
+        return;
     }
-
-    const user = inputUser.value.trim();
-    const pass = inputPass.value.trim();
-
-    if (user === "" || pass === "") {
-      alert("Por favor complete todos los campos.");
-      return;
-    }
-
-    // Cargar usuarios del localStorage
-    let usuarios = [];
-    const usuariosJSON = localStorage.getItem("usuarios");
-
-    if (usuariosJSON) {
-      try {
-        usuarios = JSON.parse(usuariosJSON);
-
-        if (!Array.isArray(usuarios)) {
-          console.warn("La lista de usuarios no es un array. Se reiniciará.");
-          usuarios = [];
+    
+    try {
+        // Aquí iría la petición al servidor
+        // Por ahora simularemos el login
+        console.log('Intentando login con:', { username, password });
+        
+        // Simulación de validación
+        if (username === 'admin' && password === 'admin123') {
+            // Redirigir al dashboard
+            window.location.href = 'index.php';
+        } else {
+            alert('Usuario o contraseña incorrectos');
         }
-
-      } catch (err) {
-        console.error("Error al leer usuarios:", err);
-        usuarios = [];
-      }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al intentar iniciar sesión');
     }
+});
 
-    // Buscar coincidencia
-    const usuarioValido = usuarios.find(
-      u => u.username === user && u.password === pass
-    );
-
-    if (!usuarioValido) {
-      alert("Usuario o contraseña incorrectos.");
-      return;
+// Animación adicional
+document.addEventListener('DOMContentLoaded', function() {
+    // Crear partículas adicionales aleatorias
+    const particlesContainer = document.querySelector('.particles');
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.width = (Math.random() * 5 + 1) + 'px';
+        particle.style.height = particle.style.width;
+        particlesContainer.appendChild(particle);
     }
-
-    // Guardar sesión
-    localStorage.setItem("username", user);
-    localStorage.setItem("logged", "true");
-    localStorage.setItem("login_time", new Date().toLocaleString());
-
-    alert(`Bienvenido, ${usuarioValido.username}`);
-
-    // Redirigir
-    window.location.href = "dashboard.html";
-  });
-}
+});
