@@ -1,0 +1,554 @@
+@import url("login.css");
+@import url("dashboard.css");
+@import url("reportes.css");
+
+:root {
+  --color-primario: #0577fa; 
+  --color-secundario: #1c3d5a;
+  --color-texto: #ffffff;
+}
+
+
+body {
+  background: #f4f6f9;
+  font-family: Arial, sans-serif;
+
+}
+
+header, nav {
+  background: var(--color-primario);
+  color: var(--color-texto);
+}
+
+    /* LOGO */
+  .login-logo {
+      width: 90px;
+      height: 90px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      border: 2px solid blue;
+      padding: 6px;
+      background-color: grey#121212;
+      object-fit: cover;
+      animation: fadeIn 1.2s ease;
+      
+    }
+
+/* Estilos básicos para toda la página */
+body, html {
+  height: 100%;  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa; 
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+/* Estilos para el formulario */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para etiquetas */
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* Estilos para inputs */
+input[type="text"],
+input[type="password"] {
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #005f99;
+  outline: none;
+  box-shadow: 0 0 3px #005f99;
+}
+
+/* Estilos para el botón */
+button[type="submit"] {
+  padding: 0.75rem;
+  background-color: #005f99;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  animation: blinking-shadow 1.5s infinite ease-in-out;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+  background-color: #004a7a;
+  outline: none;
+}
+
+/* Reglas para accesibilidad */
+/* Contraste adecuado entre texto y fondo */
+label, button {
+  color: #222222;
+}
+
+/* Soporte para navegación por teclado */
+input[type="text"],
+input[type="password"],
+button[type="submit"] {
+  outline-offset: 2px;
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1rem;
+    width: 95%;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  button[type="submit"] {
+    font-size: 1rem;
+  }
+}
+@keyframes blinking-shadow {
+  0%, 100% {
+    box-shadow: 0 0 10px 3px rgba(0, 95, 153, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px 6px rgba(0, 95, 153, 1);
+  }
+}
+/*footer{
+  background-color: var(--color-primario);
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+}*/
+
+/* Botón activo (selección actual) */
+.nav-btn.active {
+    background-color: #ffffff;
+    color: #121212;
+    border-color: #aaa;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    animation: blinking-shadow 1.5s infinite ease-in-out;
+}
+
+/* Sidebar lateral */
+.sidebar {
+  width: 220px;
+  background-color: var(--color-primario);
+  height: 100vh;
+  padding-top: 2rem;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  /*padding-left: 2.5rem;*/
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar nav ul li a.logout {
+  background-color: #dc3545;
+  font-weight: bold;
+}
+
+.sidebar nav ul li a.logout:hover {
+  background-color: #a71d2a;
+}
+
+
+
+/* Contenido principal */
+.main-content {
+  margin-left: 220px;
+  padding: 2rem;
+  width: calc(100% - 220px);
+  overflow-y: auto;
+}
+
+/* Botón de cerrar sesión */
+.logout-btn {
+    background-color: transparent;
+    color: #aaa;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem; 
+    width: 100%; 
+}
+
+/* ESTADO HOVER: Activa el parpadeo en cerrar sesión */
+.logout-btn:hover {
+    background-color: #961b1b;
+    color: #ffffff;
+    transform: none;
+    animation: subtleGoldenPulse 1.5s infinite alternate ease-in-out;
+    transition: background-color 0.3s ease;
+    animation: blinking-shadow 1.5s infinite ease-in-out;
+}
+
+
+/* Responsividad: ocultar sidebar en pantallas pequeñas */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 0.5rem 0;
+  }
+  .sidebar ul {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+
+  .sidebar nav ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
+}
+
+/* Responsividad */
+@media (max-width: 700px) {
+  .modal-content {
+    margin: 10% 1rem;
+    width: auto;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+  }
+}
+/* Modal para detalles */
+#detailsContent div {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .table th,
+  .table td,
+  .table thead th {
+    padding: 0.5rem;
+  }
+
+  .table tbody td{
+    padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+  }
+
+  .table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+  }
+
+  .table tbody tr:hover {
+  background-color: #e0e7ff;
+
+
+  }
+  .modal-content {
+    margin: 20% auto;
+    width: 90%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 0.8rem;
+  }
+}
+
+.combos{
+  width: 97%;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;      /* Centra verticalmente */
+  justify-content: space-between; /* Input a la izquierda, botón a la derecha */
+  gap: 10px;                /* Espacio entre input y botón */
+}
+
+
+/* Botón principal */
+.btn-primary {
+
+  background-color: var(--color-primario);
+  color: var(--color-texto);
+  border: none;  
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  animation: blinking-shadow 1.5s infinite ease-in-out;
+  
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secundario);
+}
+
+/* Botones editar y eliminar ver */
+.btn-edit,
+.btn-delete,
+.btn-ver {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0.3rem;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover,
+.btn-ver:hover {
+  background-color: #1e7e34;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #a71d2a;
+}
+/* Modal */
+.modal {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 6% auto;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+/* Formulario modal */
+form label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="date"],
+form input[type="tel"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+/* Lista de detalles */
+#detailsList {
+  list-style-type: none;
+  padding-left: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#detailsList li {
+  background: #e9ecef;
+  margin-bottom: 0.4rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#detailsList li button {
+  background: #dc3545;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0 0.6rem;
+  font-size: 0.8rem;
+}
+
+#confirmDelete,
+#cancelDelete {
+  border: none;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0.3rem;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+#confirmDelete{
+background-color: #dc3545;
+}
+#cancelDelete{
+  background-color: #1e7e34;
+}
+
+/* Tabla productos */
+.table {
+  width: 97% ;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  background: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #007BFF;
+  color: white;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;  
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/*boton para eliminar un detalle*/
+.btn-clear{
+  background-color: greenyellow;
+}
+/* ====== CAMPO DE BÚSQUEDA ====== */
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#searchInput {
+    width: 250px;
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    border: 1px solid #2C2C2C;
+    background-color: #ffffff;
+    color: #0a0a0a;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+#searchInput::placeholder {
+    color: #aaa;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #aaa;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
