@@ -1,165 +1,154 @@
-document.addEventListener('DOMContentLoaded', () => {  
-  
-  const usuarioActivo = localStorage.getItem('usuarioActivo') || localStorage.getItem('username');
-  if (!usuarioActivo) {
-    window.location.href = 'login.html';
-  };
-  const userModal = document.getElementById('userModal');
-  const openUserModalBtn = document.getElementById('openUserModalBtn');
-  const closeUserModalBtn = document.getElementById('closeUserModalBtn');
+// assets/js/usuarios.js
 
-  const loginModal = document.getElementById('loginModal');
-  const loginForm = document.getElementById('loginForm');
+// Elementos del DOM
+const modal = document.getElementById('userModal');
+const openModalBtn = document.getElementById('openUserModalBtn');
+const closeModalBtn = document.getElementById('closeUserModalBtn');
+const userForm = document.getElementById('userForm');
+const userList = document.getElementById('userList');
+const searchInput = document.getElementById('searchInput');
+const modalTitle = document.getElementById('userModalTitle');
 
-  const userList = document.getElementById('userList');
-  const userForm = document.getElementById('userForm');
+let editingId = null;
 
-  // Inputs formulario usuario
-  const usernameInput = document.getElementById('username');
-  const fullnameInput = document.getElementById('fullname');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-
-  let editingIndex = -1; // Para editar
-
- 
-  
-
-  // Función para cargar usuarios a tabla
-  function cargarUsuarios() {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    userList.innerHTML = '';
-    usuarios.forEach((user, i) => {
-      const tr = document.createElement('tr');
-
-      tr.innerHTML = `
-        <td>${user.username}</td>
-        <td>${user.fullname}</td>
-        <td>${user.email}</td>
-        <td>
-          <button class="btn-edit">Editar</button>
-          <button class="btn-delete">Eliminar</button>
-        </td>
-      `;
-      userList.appendChild(tr);
-
-      tr.querySelector('.btn-edit').addEventListener('click', () => editarUsuario(i));
-      tr.querySelector('.btn-delete').addEventListener('click', () => eliminarUsuario(i));
-    });
-  }
-
-  // Abrir modal nuevo usuario
-  openUserModalBtn.addEventListener('click', () => {
-    resetForm();
-    editingIndex = -1;
-    document.getElementById('userModalTitle').textContent = 'Registrar Usuario';
-    userModal.style.display = 'block';
-  });
-
-  closeUserModalBtn.addEventListener('click', () => {
-    userModal.style.display = 'none';
-  });
-
-  window.addEventListener('click', e => {
-    if (e.target === userModal) userModal.style.display = 'none';
-    if (e.target === loginModal) loginModal.style.display = 'none';
-  });
-
-  // Registrar o editar usuario
-  userForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-    const newUser = {
-      username: usernameInput.value.trim(),
-      fullname: fullnameInput.value.trim(),
-      email: emailInput.value.trim(),
-      password: passwordInput.value.trim()
-    };
-
-    // Validar único username
-    if (usuarios.some((u, idx) => u.username === newUser.username && idx !== editingIndex)) {
-      alert('Este nombre de usuario ya existe.');
-      return;
-    }
-
-    if (editingIndex >= 0) {
-      usuarios[editingIndex] = newUser;
-    } else {
-      usuarios.push(newUser);
-    }
-
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    alert ('Usuario registrado con exito!!')
-    cargarUsuarios();
-    userModal.style.display = 'none';
-    resetForm();
-  });
-
-  // Editar usuario
-  function editarUsuario(index) {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    const u = usuarios[index];
-    usernameInput.value = u.username;
-    fullnameInput.value = u.fullname;
-    emailInput.value = u.email;
-    passwordInput.value = u.password;
-    editingIndex = index;
-    document.getElementById('userModalTitle').textContent = 'Editar Usuario';
-    userModal.style.display = 'block';
-  }
-
-  // Eliminar usuario
-  function eliminarUsuario(index) {
-    if (confirm('¿Está seguro que desea eliminar este usuario?')) {
-      const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-      usuarios.splice(index, 1);
-      localStorage.setItem('usuarios', JSON.stringify(usuarios));
-      cargarUsuarios();
-    }
-  }
-
-  //Búsqueda
-
-  searchInput.addEventListener('input', () => {
-    const filtro = searchInput.value.toLowerCase();
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-    const filtradas = usuarios.filter(usuario =>
-      usuario.username.toLowerCase().includes(filtro) ||
-      usuario.fullname.toLowerCase().includes(filtro) ||
-      usuario.email.toLowerCase().includes(filtro)
-
-    );
-
-    userList.innerHTML = '';
-
-    filtradas.forEach((usuario, index) => {
-      const row = userList.insertRow();
-
-      row.insertCell(0).textContent = usuario.username;
-      row.insertCell(1).textContent = usuario.fullname;
-      row.insertCell(2).textContent = usuario.email;
-      
-
-      const actions = row.insertCell(3);
-
-      const verBtn = document.createElement('button');
-      verBtn.textContent = 'Ver';
-      verBtn.className = 'btn-ver';
-      verBtn.onclick = () => abrirParaEditar(index);
-      actions.appendChild(verBtn);
-    });
-  });
-
-
-  // Resetear formulario
-  function resetForm() {
+// Abrir modal para registrar
+openModalBtn.addEventListener('click', () => {
+    editingId = null;
+    modalTitle.textContent = 'Registrar Usuario';
     userForm.reset();
-  }
-
-  
-  // Inicializar lista
-  cargarUsuarios();
+    modal.style.display = 'block';
 });
+
+// Cerrar modal
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Cerrar modal si se hace clic fuera
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// Manejar envío del formulario
+userForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        username: document.getElementById('username').value,
+        fullname: document.getElementById('fullname').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    };
+    
+    const url = editingId 
+        ? `../../modules/usuarios/actualizar_usuario.php?id=${editingId}`
+        : '../../modules/usuarios/guardar_usuario.php';
+    
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(editingId ? 'Usuario actualizado' : 'Usuario registrado');
+            modal.style.display = 'none';
+            cargarUsuarios();
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al guardar el usuario');
+    }
+});
+
+// Cargar usuarios
+async function cargarUsuarios() {
+    try {
+        const response = await fetch('../../modules/usuarios/listar_usuarios.php');
+        const usuarios = await response.json();
+        
+        userList.innerHTML = '';
+        
+        usuarios.forEach(usuario => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${usuario.username || usuario.nombre}</td>
+                <td>${usuario.fullname || usuario.nombre_completo || usuario.nombre}</td>
+                <td>${usuario.email}</td>
+                <td>
+                    <button class="btn-edit" onclick="editarUsuario(${usuario.id})">Editar</button>
+                    <button class="btn-delete" onclick="eliminarUsuario(${usuario.id})">Eliminar</button>
+                </td>
+            `;
+            userList.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Editar usuario
+window.editarUsuario = async (id) => {
+    try {
+        const response = await fetch(`../../modules/usuarios/obtener_usuario.php?id=${id}`);
+        const usuario = await response.json();
+        
+        document.getElementById('username').value = usuario.username || usuario.nombre;
+        document.getElementById('fullname').value = usuario.fullname || usuario.nombre_completo || usuario.nombre;
+        document.getElementById('email').value = usuario.email;
+        document.getElementById('password').value = ''; // No cargar contraseña
+        
+        editingId = id;
+        modalTitle.textContent = 'Editar Usuario';
+        modal.style.display = 'block';
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al cargar el usuario');
+    }
+};
+
+// Eliminar usuario
+window.eliminarUsuario = async (id) => {
+    if (!confirm('¿Está seguro de eliminar este usuario?')) return;
+    
+    try {
+        const response = await fetch(`../../modules/usuarios/eliminar_usuario.php?id=${id}`, {
+            method: 'DELETE'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert('Usuario eliminado');
+            cargarUsuarios();
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al eliminar el usuario');
+    }
+};
+
+// Búsqueda en tiempo real
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = userList.getElementsByTagName('tr');
+    
+    Array.from(rows).forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+// Cargar usuarios al iniciar
+cargarUsuarios();

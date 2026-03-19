@@ -1,17 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const logoutBtn = document.getElementById('logoutBtn');
+// assets/js/logout.js
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      
-      // Eliminar los datos del usuario guardados en localStorage
-      localStorage.removeItem('usuarioActivo');
-      localStorage.removeItem('logged');
-      localStorage.removeItem('username');
-
-      // Mostrar confirmación y redirigir al login
-      alert('Sesión cerrada correctamente.');
-      window.location.href = 'login.html';
-    });
-  }
+document.getElementById('logoutBtn').addEventListener('click', function() {
+    if (confirm('¿Está seguro de cerrar sesión?')) {
+        // Redirigir al logout.php que procesará la destrucción de la sesión
+        window.location.href = '../../logout.php';
+    }
 });
