@@ -67,4 +67,3 @@ function generarTokenCSRF() {
 function verificarTokenCSRF($token) {
     return isset($_SESSION['token']) && hash_equals($_SESSION['token'], $token);
 }
-?>

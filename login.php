@@ -9,11 +9,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = limpiarEntrada($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
-    
-    // Nota: en el formulario HTML el campo se llama "username"
-    // pero en la base de datos guardamos como email
-    // Asumimos que username puede ser email o nombre de usuario
-    
+          
     if (empty($username) || empty($password)) {
         $error = 'Todos los campos son obligatorios';
     } else {

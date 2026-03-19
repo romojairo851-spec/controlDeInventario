@@ -88,8 +88,7 @@ CREATE TABLE salidas (
     fecha_salida TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     observaciones TEXT,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    INDEX idx_fecha (fecha_salida),
-    INDEX idx_tipo (tipo_salida)
+    INDEX idx_fecha (fecha_salida)
 ) ENGINE=InnoDB;
 
 -- ============================================

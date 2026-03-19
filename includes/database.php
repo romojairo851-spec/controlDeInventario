@@ -26,9 +26,9 @@ function obtenerConexion() {
  */
 function loginUsuario($email, $password) {
     $pdo = obtenerConexion();
-    $sql = "SELECT id, nombre, email, password, rol FROM usuarios WHERE email = :email AND estado = 1";
+    $sql = "SELECT id, nombre, email, password, rol FROM usuarios WHERE (email = :identificador OR nombre = :identificador)";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':identificador', $email);
     $stmt->execute();
     
     $usuario = $stmt->fetch();
@@ -65,4 +65,3 @@ function obtenerUsuarios() {
     $stmt = $pdo->query($sql);
     return $stmt->fetchAll();
 }
-?>
