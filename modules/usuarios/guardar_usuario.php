@@ -1,5 +1,4 @@
 <?php
-// modules/usuarios/guardar_usuario.php
 require_once '../../includes/database.php';
 header('Content-Type: application/json');
 
@@ -22,7 +21,7 @@ if (empty($username) || empty($fullname) || empty($email) || empty($password)) {
 
 try {
     $pdo = obtenerConexion();
-    
+
     // Verificar si el email ya existe
     $check = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
     $check->execute([$email]);
@@ -30,16 +29,16 @@ try {
         echo json_encode(['success' => false, 'message' => 'El email ya está registrado']);
         exit;
     }
-    
+
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    
-    $sql = "INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, 'bodeguero')";
+
+    $sql = "INSERT INTO usuarios (username, nombre, email, password, rol) VALUES (?, ?, ?, ?, 'bodeguero')";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$fullname, $email, $hash]);
-    
+    $stmt->execute([$username, $fullname, $email, $hash]);
+
     echo json_encode(['success' => true, 'message' => 'Usuario guardado correctamente']);
-} catch (Exception $e) {
+}
+catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 ?>
-

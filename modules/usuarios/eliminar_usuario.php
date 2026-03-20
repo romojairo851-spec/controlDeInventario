@@ -1,5 +1,4 @@
 <?php
-// modules/usuarios/eliminar_usuario.php
 require_once '../../includes/database.php';
 header('Content-Type: application/json');
 
@@ -15,9 +14,10 @@ try {
     $sql = "DELETE FROM usuarios WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
-    
+
     echo json_encode(['success' => true, 'message' => 'Usuario eliminado']);
-} catch (Exception $e) {
+}
+catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 ?>

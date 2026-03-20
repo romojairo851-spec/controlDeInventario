@@ -1,5 +1,4 @@
 <?php
-// modules/productos/total_productos.php
 require_once '../../includes/database.php';
 header('Content-Type: application/json');
 
@@ -10,4 +9,3 @@ $resultado = $stmt->fetch();
 
 echo json_encode(['total' => $resultado['total']]);
 ?>
-

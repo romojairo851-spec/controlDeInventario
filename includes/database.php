@@ -26,7 +26,7 @@ function obtenerConexion() {
  */
 function loginUsuario($email, $password) {
     $pdo = obtenerConexion();
-    $sql = "SELECT id, nombre, email, password, rol FROM usuarios WHERE (email = :identificador OR nombre = :identificador)";
+    $sql = "SELECT id, username, nombre, email, password, rol FROM usuarios WHERE (email = :identificador OR username = :identificador)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':identificador', $email);
     $stmt->execute();
@@ -61,7 +61,7 @@ function registrarUsuario($nombre, $email, $password, $rol = 'bodeguero') {
  */
 function obtenerUsuarios() {
     $pdo = obtenerConexion();
-    $sql = "SELECT id, nombre, email, rol, fecha_creacion FROM usuarios ORDER BY id DESC";
+    $sql = "SELECT id, username, nombre, email, rol, fecha_creacion FROM usuarios ORDER BY id DESC";
     $stmt = $pdo->query($sql);
     return $stmt->fetchAll();
 }

@@ -1,5 +1,3 @@
-// assets/js/dashboard.js
-
 // Cargar estadísticas del dashboard
 async function cargarEstadisticas() {
     try {

@@ -12,6 +12,7 @@ USE inventario_db;
 -- ============================================
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -19,6 +20,10 @@ CREATE TABLE usuarios (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
+-- Insertar usuario administrador por defecto (admin / admin123)
+INSERT INTO usuarios (username, nombre, email, password, rol) 
+VALUES ('admin', 'Administrador del Sistema', 'admin@ejemplo.com', '$2y$10$bjXfwDlgQ3PdcGE.wukDue.zt.TDcbY5eY7aZUXURaX9zoJ0pyoZK', 'admin');
 
 -- ============================================
 -- TABLA: proveedores

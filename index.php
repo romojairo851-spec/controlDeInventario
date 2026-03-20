@@ -1,5 +1,5 @@
 <?php
-// index.php - Dashboard principal
+// index.php - Dashboard página principal
 require_once 'includes/config.php';
 require_once 'includes/funciones.php';
 require_once 'includes/database.php';
@@ -61,7 +61,7 @@ $productosBajoStock = obtenerProductosBajoStock();
 
     <div>
       <?php if (empty($productosBajoStock)): ?>
-      <p class="alert alert-success">No hay productos con stock bajo. ¡Todo está bien!</p>
+      <p class="alert alert-success">No hay productos con stock bajo.</p>
       <?php
 else: ?>
       <ul class="listaBajoStock" id="bajoStockList">

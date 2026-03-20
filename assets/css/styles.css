@@ -1,9 +1,492 @@
-@import url("login.css");
-@import url("dashboard.css");
-@import url("reportes.css");
+/* Contenedor del formulario centrado */
+.login-container {
+  width: 400px;
+  background-color: white;
+  /* Fondo blanco para contraste */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 70%;
+  max-width: 400px;
+  box-sizing: border-box;
+  position: absolute;
+  /*centrar el formulario en centro estas 3 lineas*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: relative;
+  z-index: 10;
+  /* encima del perro y partículas */
+}
+
+/*Animacion parpadenate*/
+.login-container {
+  animation: blinking-shadow 1.5s infinite ease-in-out;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.login-container h1 {
+  color: #000000;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.login-container label {
+  text-align: left;
+  color: #000000;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.login-container input {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #2C2C2C;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.login-container input:focus {
+  border-color: grey;
+  outline: none;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.login-container button {
+  background-color: blue;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  /* Base: Sin animación constante */
+}
+
+.login-container button:hover {
+  background-color: #ffffff;
+  transform: translateY(-2px);
+
+  /* Aplicación de parpadeo solo en hover */
+  animation: subtleGoldenPulse 1.5s infinite alternate ease-in-out;
+}
+
+.login-footer {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.login-footer span {
+  color: blue;
+  font-weight: 600;
+}
+
+/* Partículas doradas animadas de fondo (opcional) */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  /* Evitar que las partículas bloqueen los clics */
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: blue;
+  border-radius: 50%;
+  animation: rise 6s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Animación del perrito corriendo*/
+.dog-animation-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.running-dog {
+  position: absolute;
+  bottom: 10%;
+  width: 120px;
+  height: 60px;
+  transform: scale(1.5);
+  animation: runAcross 15s linear infinite;
+}
+
+@keyframes runAcross {
+  0% {
+    left: -150px;
+  }
+
+  100% {
+    left: 110%;
+  }
+}
+
+/* Partes del perrito */
+.head,
+.body,
+.leg {
+  position: absolute;
+  background-color: rgba(224, 224, 224, 0.8);
+  border: 2px solid #aaa;
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.2);
+}
+
+/* Cabeza */
+.head {
+  width: 30px;
+  height: 25px;
+  border-radius: 5px 20px 5px 5px;
+  top: 0;
+  left: 30px;
+  transform-origin: 50% 100%;
+  animation: headBob 0.3s infinite alternate;
+}
+
+.ear {
+  width: 10px;
+  height: 10px;
+  background-color: #aaa;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  transform: rotate(45deg);
+  border-radius: 0 5px 0 0;
+}
+
+/* Cuerpo */
+.body {
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  top: 15px;
+  left: 0;
+}
+
+/* Cola */
+.tail {
+  position: absolute;
+  width: 15px;
+  height: 5px;
+  background-color: rgba(224, 224, 224, 0.8);
+  border: 2px solid #aaa;
+  border-radius: 0 5px 5px 0;
+  top: 25px;
+  left: -15px;
+  transform-origin: 100% 50%;
+  animation: tailWag 0.5s infinite alternate;
+}
+
+/* Animaciones */
+@keyframes headBob {
+  from {
+    transform: rotate(-5deg);
+  }
+
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes tailWag {
+  from {
+    transform: rotate(15deg);
+  }
+
+  to {
+    transform: rotate(-15deg);
+  }
+}
+
+.leg {
+  width: 5px;
+  height: 25px;
+  border-radius: 2px;
+  top: 45px;
+  transform-origin: top;
+  background-color: #2C2C2C;
+}
+
+.front-leg-1 {
+  left: 40px;
+  animation: legMovement 0.3s infinite alternate;
+}
+
+.front-leg-2 {
+  left: 55px;
+  animation: legMovement 0.3s 0.15s infinite alternate;
+}
+
+.back-leg-1 {
+  left: 10px;
+  animation: legMovement 0.3s 0.05s infinite alternate;
+}
+
+.back-leg-2 {
+  left: 25px;
+  animation: legMovement 0.3s 0.2s infinite alternate;
+}
+
+@keyframes legMovement {
+  from {
+    transform: rotate(-10deg);
+  }
+
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+.dashboard {
+  max-width: 600px;
+  margin: 0 auto;
+  width: calc(100% - 220px);
+  overflow: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #005f99;
+}
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  flex: 1 1 200px;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #005f99;
+}
+
+.card svg {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.card .info {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.low-stock-list {
+  background: rgb(255, 255, 255);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.low-stock-list h2 {
+  margin-top: 0;
+  color: #d9534f;
+}
+
+.low-stock-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.low-stock-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+}
+
+.low-stock-list li svg {
+  fill: #d9534f;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+#bajoStockList {
+  list-style: none;
+  padding-left: 0;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff6f6;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+}
+
+#bajoStockList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f5c6c6;
+  font-weight: bold;
+  color: #b02a37;
+}
+
+#bajoStockList li:last-child {
+  border-bottom: none;
+}
+
+#bajoStockList li span.product-name {
+  flex-grow: 1;
+}
+
+#bajoStockList li button.ir-productos-btn {
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#bajoStockList li button.ir-productos-btn:hover {
+  background-color: #a71d2a;
+}
+
+
+/*
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 1rem 0;
+  }
+
+  .sidebar nav ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+*/
+
+
+.botones-exportar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+
+.btn-primary:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+
+#contenedorReporte {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+
+
+
 
 :root {
-  --color-primario: #0577fa; 
+  --color-primario: #0577fa;
   --color-secundario: #1c3d5a;
   --color-texto: #ffffff;
 }
@@ -15,43 +498,46 @@ body {
 
 }
 
-header, nav {
+header,
+nav {
   background: var(--color-primario);
   color: var(--color-texto);
 }
 
-    /* LOGO */
-  .login-logo {
-      width: 90px;
-      height: 90px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 1rem;
-      border-radius: 50%;
-      border: 2px solid blue;
-      padding: 6px;
-      background-color: grey#121212;
-      object-fit: cover;
-      animation: fadeIn 1.2s ease;
-      
-    }
+/* LOGO */
+.login-logo {
+  width: 90px;
+  height: 90px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  border: 2px solid blue;
+  padding: 6px;
+  background-color: grey#121212;
+  object-fit: cover;
+  animation: fadeIn 1.2s ease;
+
+}
 
 /* Estilos básicos para toda la página */
-body, html {
-  height: 100%;  
+body,
+html {
+  height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f5f7fa; 
+  background-color: #f5f7fa;
   justify-content: center;
   align-items: center;
 }
+
 h1 {
   text-align: center;
   margin-bottom: 1.5rem;
 }
 
-form > div {
+form>div {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
@@ -110,7 +596,8 @@ button[type="submit"]:focus {
 
 /* Reglas para accesibilidad */
 /* Contraste adecuado entre texto y fondo */
-label, button {
+label,
+button {
   color: #222222;
 }
 
@@ -134,14 +621,19 @@ button[type="submit"] {
     font-size: 1rem;
   }
 }
+
 @keyframes blinking-shadow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 10px 3px rgba(0, 95, 153, 0.7);
   }
+
   50% {
     box-shadow: 0 0 20px 6px rgba(0, 95, 153, 1);
   }
 }
+
 /*footer{
   background-color: var(--color-primario);
   position: absolute;
@@ -151,12 +643,12 @@ button[type="submit"] {
 
 /* Botón activo (selección actual) */
 .nav-btn.active {
-    background-color: #ffffff;
-    color: #121212;
-    border-color: #aaa;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    animation: blinking-shadow 1.5s infinite ease-in-out;
+  background-color: #ffffff;
+  color: #121212;
+  border-color: #aaa;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  animation: blinking-shadow 1.5s infinite ease-in-out;
 }
 
 /* Sidebar lateral */
@@ -165,7 +657,7 @@ button[type="submit"] {
   background-color: var(--color-primario);
   height: 100vh;
   padding-top: 2rem;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -219,26 +711,26 @@ button[type="submit"] {
 
 /* Botón de cerrar sesión */
 .logout-btn {
-    background-color: transparent;
-    color: #aaa;
-    border: 1px solid #aaa;
-    border-radius: 6px;
-    padding: 0.8rem 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 2rem; 
-    width: 100%; 
+  background-color: transparent;
+  color: #aaa;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  width: 100%;
 }
 
 /* ESTADO HOVER: Activa el parpadeo en cerrar sesión */
 .logout-btn:hover {
-    background-color: #961b1b;
-    color: #ffffff;
-    transform: none;
-    animation: subtleGoldenPulse 1.5s infinite alternate ease-in-out;
-    transition: background-color 0.3s ease;
-    animation: blinking-shadow 1.5s infinite ease-in-out;
+  background-color: #961b1b;
+  color: #ffffff;
+  transform: none;
+  animation: subtleGoldenPulse 1.5s infinite alternate ease-in-out;
+  transition: background-color 0.3s ease;
+  animation: blinking-shadow 1.5s infinite ease-in-out;
 }
 
 
@@ -251,11 +743,12 @@ button[type="submit"] {
     flex-direction: row;
     padding: 0.5rem 0;
   }
+
   .sidebar ul {
     display: flex;
     justify-content: space-around;
   }
-  
+
 
   .sidebar nav ul {
     display: flex;
@@ -282,6 +775,7 @@ button[type="submit"] {
     padding: 0.5rem;
   }
 }
+
 /* Modal para detalles */
 #detailsContent div {
   padding: 0.3rem 0;
@@ -290,27 +784,29 @@ button[type="submit"] {
 
 /* Responsividad */
 @media (max-width: 600px) {
+
   .table th,
   .table td,
   .table thead th {
     padding: 0.5rem;
   }
 
-  .table tbody td{
+  .table tbody td {
     padding: 10px 12px;
-  border-bottom: 1px solid #e5e7eb;
-  text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
   }
 
   .table tbody tr:nth-child(even) {
-  background-color: #f9fafb;
+    background-color: #f9fafb;
   }
 
   .table tbody tr:hover {
-  background-color: #e0e7ff;
+    background-color: #e0e7ff;
 
 
   }
+
   .modal-content {
     margin: 20% auto;
     width: 90%;
@@ -322,15 +818,18 @@ button[type="submit"] {
   }
 }
 
-.combos{
+.combos {
   width: 97%;
 }
 
 .search-container {
   display: flex;
-  align-items: center;      /* Centra verticalmente */
-  justify-content: space-between; /* Input a la izquierda, botón a la derecha */
-  gap: 10px;                /* Espacio entre input y botón */
+  align-items: center;
+  /* Centra verticalmente */
+  justify-content: space-between;
+  /* Input a la izquierda, botón a la derecha */
+  gap: 10px;
+  /* Espacio entre input y botón */
 }
 
 
@@ -339,7 +838,7 @@ button[type="submit"] {
 
   background-color: var(--color-primario);
   color: var(--color-texto);
-  border: none;  
+  border: none;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   border-radius: 6px;
@@ -350,7 +849,7 @@ button[type="submit"] {
   margin-left: auto;
   margin-right: auto;
   animation: blinking-shadow 1.5s infinite ease-in-out;
-  
+
 }
 
 .btn-primary:hover {
@@ -384,9 +883,11 @@ button[type="submit"] {
 .btn-delete:hover {
   background-color: #a71d2a;
 }
+
 /* Modal */
 .modal {
-  display: none; /* oculto por defecto */
+  display: none;
+  /* oculto por defecto */
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -404,7 +905,7 @@ button[type="submit"] {
   border-radius: 8px;
   max-width: 400px;
   position: relative;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-close {
@@ -422,6 +923,7 @@ button[type="submit"] {
   margin-bottom: 1rem;
   text-align: center;
 }
+
 /* Formulario modal */
 form label {
   display: block;
@@ -444,6 +946,7 @@ form textarea {
   border-radius: 6px;
   box-sizing: border-box;
 }
+
 /* Lista de detalles */
 #detailsList {
   list-style-type: none;
@@ -484,16 +987,17 @@ form textarea {
   transition: background-color 0.3s ease;
 }
 
-#confirmDelete{
-background-color: #dc3545;
+#confirmDelete {
+  background-color: #dc3545;
 }
-#cancelDelete{
+
+#cancelDelete {
   background-color: #1e7e34;
 }
 
 /* Tabla productos */
 .table {
-  width: 97% ;
+  width: 97%;
   border-collapse: collapse;
   margin-bottom: 1.5rem;
   background: white;
@@ -511,7 +1015,7 @@ background-color: #dc3545;
 .table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #ddd;  
+  border-bottom: 1px solid #ddd;
 }
 
 .table tr:hover {
@@ -519,36 +1023,36 @@ background-color: #dc3545;
 }
 
 /*boton para eliminar un detalle*/
-.btn-clear{
+.btn-clear {
   background-color: greenyellow;
 }
-/* ====== CAMPO DE BÚSQUEDA ====== */
+
+/* Campo de busqueda */
 .search-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items:center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 #searchInput {
-    width: 250px;
-    padding: 0.6rem 1rem;
-    border-radius: 25px;
-    border: 1px solid #2C2C2C;
-    background-color: #ffffff;
-    color: #0a0a0a;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+  width: 250px;
+  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  border: 1px solid #2C2C2C;
+  background-color: #ffffff;
+  color: #0a0a0a;
+  transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 #searchInput::placeholder {
-    color: #aaa;
+  color: #aaa;
 }
 
 #searchInput:focus {
-    outline: none;
-    border-color: #aaa;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+  outline: none;
+  border-color: #aaa;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
-

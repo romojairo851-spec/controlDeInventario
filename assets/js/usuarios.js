@@ -16,6 +16,7 @@ openModalBtn.addEventListener('click', () => {
     editingId = null;
     modalTitle.textContent = 'Registrar Usuario';
     userForm.reset();
+    document.getElementById('password').setAttribute('required', 'required');
     modal.style.display = 'block';
 });
 
@@ -106,6 +107,7 @@ window.editarUsuario = async (id) => {
         document.getElementById('fullname').value = usuario.fullname || usuario.nombre_completo || usuario.nombre;
         document.getElementById('email').value = usuario.email;
         document.getElementById('password').value = ''; // No cargar contraseña
+        document.getElementById('password').removeAttribute('required'); // Opcional al editar
         
         editingId = id;
         modalTitle.textContent = 'Editar Usuario';

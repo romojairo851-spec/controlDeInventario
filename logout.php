@@ -1,7 +1,8 @@
 <?php
 // logout.php - Cerrar sesión
-session_start();
+require_once 'includes/config.php';
+require_once 'includes/funciones.php';
+
+$_SESSION = [];
 session_destroy();
-header('Location: login.php');
-exit;
-?>
+redireccionar('/login.php');

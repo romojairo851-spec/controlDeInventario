@@ -2,7 +2,7 @@
 require_once 'includes/database.php';
 
 $pdo = obtenerConexion();
-echo "✅ Conexión exitosa a la base de datos<br>";
+echo "Conexión exitosa a la base de datos<br>";
 
 $stmt = $pdo->query("SELECT COUNT(*) as total FROM usuarios");
 $row = $stmt->fetch();

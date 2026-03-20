@@ -1,5 +1,4 @@
 <?php
-// modules/usuarios/usuarios.php
 require_once '../../includes/config.php';
 require_once '../../includes/funciones.php';
 require_once '../../includes/database.php';
